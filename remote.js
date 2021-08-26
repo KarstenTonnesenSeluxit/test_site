@@ -51,6 +51,7 @@ websocket.onerror = function(evt) {
 $.get(
     "network",
     function(data) {
-       alert('page content: ' + data);
+       //alert('page content: ' + data);
+       document.getElementById("datamodel").innerHTML = data;
     }
 );
