@@ -47,3 +47,10 @@ websocket.onerror = function(evt) {
   console.log('Websocket error: ' + evt);
   document.getElementById("test").innerHTML = "WebSocket error????!!!1!!";
 }
+
+$.get(
+    "network",
+    function(data) {
+       alert('page content: ' + data);
+    }
+);
