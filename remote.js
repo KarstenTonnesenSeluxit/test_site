@@ -53,12 +53,11 @@ $(document).ready(function(){
   $.get(
       "network",
       function(data) {
-         alert('page content: ' + data);
-         document.getElementById("datamodel").innerHTML = JSON.stringify(data);
+         document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log("OBject");
          console.log(data);
          console.log("string?");
-         console.log(JSON.stringify(data));
+         console.log(JSON.stringify(data), null, 2);
       }
   );
 });
