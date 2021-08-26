@@ -54,10 +54,7 @@ $(document).ready(function(){
       "network",
       function(data) {
          document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
-         console.log("OBject");
          console.log(data);
-         console.log("string?");
-         console.log(JSON.stringify(data, null, 2));
       }
   );
 });
