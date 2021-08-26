@@ -1,12 +1,13 @@
 document.getElementById("test").innerHTML = "WebSocket is not connected";
 
 var websocket = new WebSocket('ws://'+location.hostname+'/');
+/*
 var slider = document.getElementById("myRange");
 
 slider.oninput = function () {
   websocket.send("L" + slider.value);
 }
-
+*/
 function sendMsg() {
   websocket.send('L50');
   console.log('Sent message to websocket');
@@ -28,8 +29,8 @@ websocket.onmessage = function(evt) {
   switch(msg.charAt(0)) {
     case 'L':
       console.log(msg);
-      value = parseInt(msg.replace(/[^0-9\.]/g, ''), 10);
-      slider.value = value;
+      //value = parseInt(msg.replace(/[^0-9\.]/g, ''), 10);
+      //slider.value = value;
       console.log("Led = " + value);
       break;
     default:
@@ -48,11 +49,13 @@ websocket.onerror = function(evt) {
   document.getElementById("test").innerHTML = "WebSocket error????!!!1!!";
 }
 
-$.get(
-    "network",
-    function(data) {
-       alert('page content: ' + data);
-       //document.getElementById("datamodel").innerHTML = data;
-       console.log(data);
-    }
-);
+$(document).ready(function(){
+  $.get(
+      "network",
+      function(data) {
+         alert('page content: ' + data);
+         //document.getElementById("datamodel").innerHTML = data;
+         console.log(data);
+      }
+  );
+}
