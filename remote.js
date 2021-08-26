@@ -58,7 +58,7 @@ $(document).ready(function(){
          console.log("OBject");
          console.log(data);
          console.log("string?");
-         console.log(JSON.stringify(data);
+         console.log(JSON.stringify(data));
       }
   );
 });
