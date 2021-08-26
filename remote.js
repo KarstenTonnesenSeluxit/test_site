@@ -33,7 +33,7 @@ websocket.onmessage = function(evt) {
       console.log("Led = " + value);
       break;
     default:
-      document.getElementById("output").innerHTML += "<br>" + evt.data;
+      document.getElementById("output").innerHTML += "<br>" + JSON.stringify(evt.data);
       break;
   }
 }
