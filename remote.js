@@ -55,7 +55,7 @@ $(document).ready(function(){
       function(data) {
          document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log(data);
-         document.getElementById("container").appendChild(renderjson(data)
+         document.getElementById("container").appendChild(renderjson(data));
       }
   );
 });
