@@ -54,8 +54,11 @@ $(document).ready(function(){
       "network",
       function(data) {
          alert('page content: ' + data);
-         //document.getElementById("datamodel").innerHTML = data;
+         document.getElementById("datamodel").innerHTML = JSON.stringify(data);
+         console.log("OBject");
          console.log(data);
+         console.log("string?");
+         console.log(JSON.stringify(data);
       }
   );
 });
