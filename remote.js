@@ -53,7 +53,7 @@ $(document).ready(function(){
   $.get(
       "network",
       function(data) {
-         document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
+         //document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log(data);
          document.getElementById("container").appendChild(renderjson(data));
       }
