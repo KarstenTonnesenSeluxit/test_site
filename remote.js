@@ -55,8 +55,8 @@ $(document).ready(function(){
       function(data) {
          //document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log(data);
+         renderjson.set_show_to_level(3);
          document.getElementById("container").appendChild(renderjson(data));
-         renderjson.set_show_to_level(1);
       }
   );
 });
