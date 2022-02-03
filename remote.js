@@ -26,6 +26,7 @@ websocket.onopen = function(evt) {
 websocket.onmessage = function(evt) {
   var msg = evt.data;
   var value;
+  var logData;
   switch(msg.charAt(0)) {
     case 'L':
       console.log(msg);
@@ -34,7 +35,13 @@ websocket.onmessage = function(evt) {
       console.log("Led = " + value);
       break;
     default:
-      document.getElementById("output").innerHTML += "<br>" + evt.data;
+      logData = evt.data.replace(/[^A-Za-z 0-9 \.,\?""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g, '');
+      var json = JSON.parse(logData);
+      var ar = json.data.split("[0m");
+      ar.forEach(function(line) {
+        document.getElementById("output").innerHTML += "<br>" + line.replace("[0;32m", "");
+      })
+      //document.getElementById("output").innerHTML += "<br>" + evt.data;
       break;
   }
 }
