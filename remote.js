@@ -42,13 +42,13 @@ websocket.onmessage = function(evt) {
         var output;
         if(line.includes("[0;32m")) {
           line = line.replace("[0;32m", "");
-          output = "<br><p style=\"color:green;\">" + line + "</p>";
+          output = "<div style=\"color:green;\">" + line + "</div>";
         } else if(line.includes("[0;31m")) {
           line = line.replace("[0;31m", "");
-          output = "<br><p style=\"color:red;\">" + line + "</p>";
+          output = "<div style=\"color:red;\">" + line + "</div>";
         } else if(line.includes("[0;33m")) {
           line = line.replace("[0;33m", "");
-          output = "<br><p style=\"color:yellow;\">" + line + "</p>";
+          output = "<div style=\"color:yellow;\">" + line + "</div>";
         } else {
           output = line;
         }
