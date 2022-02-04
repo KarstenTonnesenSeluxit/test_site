@@ -39,7 +39,20 @@ websocket.onmessage = function(evt) {
       var json = JSON.parse(logData);
       var ar = json.data.split("[0m");
       ar.forEach(function(line) {
-        document.getElementById("output").innerHTML += "<br>" + line.replace("[0;32m", "");
+        var output;
+        if(line.includes("[0;32m")) {
+          line = line.replace("[0;32m", "");
+          output = "<br><p style="color:green;">" + line + "</p>";
+        } else if(line.includes("[0;31m")) {
+          line = line.replace("[0;31m", "");
+          output = "<br><p style="color:red;">" + line + "</p>";
+        } else if(line.includes("[0;33m")) {
+          line = line.replace("[0;33m", "");
+          output = "<br><p style="color:yellow;">" + line + "</p>";
+        } else {
+          output = line;
+        }
+        document.getElementById("output").innerHTML += output;
       })
       //document.getElementById("output").innerHTML += "<br>" + evt.data;
       break;
