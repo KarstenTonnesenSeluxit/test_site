@@ -26,37 +26,30 @@ websocket.onopen = function(evt) {
 websocket.onmessage = function(evt) {
   var msg = evt.data;
   var value;
-  var logData;
-  switch(msg.charAt(0)) {
-    case 'L':
-      console.log(msg);
-      //value = parseInt(msg.replace(/[^0-9\.]/g, ''), 10);
-      //slider.value = value;
-      console.log("Led = " + value);
-      break;
-    default:
-      logData = evt.data.replace(/[^A-Za-z 0-9 \.,\?""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g, '');
-      var json = JSON.parse(logData);
-      var ar = json.data.split("[0m");
-      ar.forEach(function(line) {
-        var output;
-        if(line.includes("[0;32m")) {
-          line = line.replace("[0;32m", "");
-          output = "<div style=\"color:green;\">" + line + "</div>";
-        } else if(line.includes("[0;31m")) {
-          line = line.replace("[0;31m", "");
-          output = "<div style=\"color:red;\">" + line + "</div>";
-        } else if(line.includes("[0;33m")) {
-          line = line.replace("[0;33m", "");
-          output = "<div style=\"color:yellow;\">" + line + "</div>";
-        } else {
-          output = line;
-        }
-        document.getElementById("output").innerHTML += output;
-      })
-      //document.getElementById("output").innerHTML += "<br>" + evt.data;
-      break;
-  }
+  var logData = evt.data.replace(/[^A-Za-z 0-9 \.,\?""!@#\$%\^&¤\*\(\)-_=\+;:<>\/\\\|\}\{\[\]\n\r`~]*/g, '');
+  var json = JSON.parse(logData);
+  var ar = json.data.split("[0m");
+  var color = "white";
+  ar.forEach(function(line) {
+    var output;
+    line = line.replace("[0m", "");
+    line = line.replaceAll("", "");
+
+    if(line.includes("[0;32m")) {
+      line = line.replace("[0;32m", "");
+      color = "green";
+    } else if(line.includes("[0;31m")) {
+      line = line.replace("[0;31m", "");
+      color = "red";
+    } else if(line.includes("[0;33m")) {
+      line = line.replace("[0;33m", "");
+      color = "yellow";
+    } else {
+      color = "white";
+    }
+    output = "<span style=\"color:"+ color +";\">" + line + "</span>";
+    document.getElementById("output").innerHTML += output;
+  })
 }
 
 websocket.onclose = function(evt) {
