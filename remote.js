@@ -50,6 +50,7 @@ websocket.onmessage = function(evt) {
     output = "<span style=\"color:"+ color +";\">" + line + "</span>";
     document.getElementById("output").innerHTML += output;
   })
+  window.scrollTo(0,document.body.scrollHeight);
 }
 
 websocket.onclose = function(evt) {
