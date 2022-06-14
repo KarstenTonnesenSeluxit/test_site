@@ -1,4 +1,5 @@
-let auto_scroll_check, checkboxPlaying
+let auto_scroll_check, checkboxPlaying;
+let enable_uuid_control, enable_uuid_report;
 var websocket = new WebSocket('ws://'+location.hostname+'/');
 
 /*
@@ -18,22 +19,21 @@ function sendText(text) {
 }
 
 function clickEnable() {
-  /*
-  fetch("http://localhost/state/406d9c22-43df-4d83-0c98-40151aa19cbb",{
+  var body_data = '0';
+  if(enableButton.checked) {
+    body_data = '1';
+  }
+  fetch("/state/"+enable_uuid_control,{
     method: 'PUT',
-    mode: 'no-cors',
     headers:{
       'Content-Type':'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost',
-      'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS',
     },
-    body: JSON.stringify(todo set data)
+    body: JSON.stringify({'data': body_data})
   }).then(response=>{
     return response.json()
   }).then(data=>
     console.log(data)
   );
-*/
 }
 
 websocket.onopen = function(evt) {
@@ -88,21 +88,38 @@ websocket.onerror = function(evt) {
 $(document).ready(function(){
   document.getElementById("test").innerHTML = "WebSocket is not connected";
 
+  enableButton = document.getElementById("switch-enable");
+  enableButton.checked = false;
+  enableButton.addEventListener('click', clickEnable);
+
   auto_scroll_check = document.getElementById('switch-scroll');
 
-/*
-  enableButton = document.getElementById("switch-enable");
-  enableButton.addEventListener('click', clickEnable);
-*/
+  gpio0Button = document.getElementById("switch-gpio0");
+  gpio0Button.disabled = true;
 
   $.get(
       "network",
       function(data) {
          //document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log(data);
-         //data.device[0].value[5]
+
+         for(var i=0; i< data.device[0].value.length; i++) {
+            if(data.device[0].value[i].name == "DBG Enable") {
+              for(var s=0; s<data.device[0].value[i].state.length; s++ ) {
+                if(data.device[0].value[i].state[s].type == "Control") {
+                  enable_uuid_control = data.device[0].value[i].state[s].meta.id;
+                  if(data.device[0].value[i].state[s].data == "1") {
+                    enableButton.checked = true;
+                  }
+                } else if(data.device[0].value[i].state[s].type == "Report") {
+                  enable_uuid_report = data.device[0].value[i].state[s].meta.id;
+                }
+              }
+            }
+         }
          renderjson.set_show_to_level(0);
          document.getElementById("datamodel").appendChild(renderjson(data));
       }
   );
+
 });
