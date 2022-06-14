@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
 
+<head>
+    <title>WIFI DBG</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+    <script type="text/javascript" src="http://10.10.71.120:8000/remote.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.4.2/css/pico.min.css">
+    <link rel="stylesheet" href="http://10.10.71.120:8000/remote.css">
+    <!--
+    <link type="text/css" href="https://cdn.jsdelivr.net/gh/KarstenTonnesenSeluxit/test_site@latest/remote.css" rel="stylesheet"/>
+    -<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/KarstenTonnesenSeluxit/test_site@latest/remote.js"></script>
+    -->
+</head>
+
+<body>
+    <div class="test_wrapper">
+        <div class="static">
+                <h1 style="color:white;">WIFI DBG test page</h1>
+                <p>
+                    This is being hosted from an ESP32 running freeRTOS.<br>
+                    <a href="https://app.swaggerhub.com/apis-docs/seluxit/E-Info/0.0.3"> E-INFO REST interface</a>
+                </p>
+
+            <div class="grid">
+                <label for switch-enable>
+                    <input type="checkbox" id="switch-enable" name="switch-en" role="switch" checked="">
+                    </input>
+                    Enable
+                </label>
+
+                <label for switch-gpio0>
+                    <input type="checkbox" id="switch-gpio0" name="switch-g0" role="switch" checked="">
+                    </input>
+                    GPIO0
+                </label>
+
+                <label for switch-scroll>
+                    <input type="checkbox" id="switch-gpio0" name="switch-scroll"  checked="">
+                    </input>
+                    Auto scroll
+                </label>
+            </div>
+
+            <p>Network:</p>
+            <p id="datamodel"></p>
+            <p id="test"></p>
+            <p>Events:</p>
+        </div>
+
+        <div class="logstyle" id="debug_log">
+        </div>
+    </div>
+
+    <!--
+<form id="frm1" action="#">
+  Send text: <input type="text" name="ftext"><br>
+  <button type="button" onclick="sendText(document.getElementsByName('ftext')[0].value);">Send</button>
+</form>
+-->
+
+</body>
+
+</html>

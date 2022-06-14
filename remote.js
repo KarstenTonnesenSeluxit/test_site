@@ -1,6 +1,6 @@
-document.getElementById("test").innerHTML = "WebSocket is not connected";
-
+let auto_scroll_check, checkboxPlaying
 var websocket = new WebSocket('ws://'+location.hostname+'/');
+
 /*
 var slider = document.getElementById("myRange");
 
@@ -17,6 +17,25 @@ function sendText(text) {
   websocket.send("M" + text);
 }
 
+function clickEnable() {
+  /*
+  fetch("http://localhost/state/406d9c22-43df-4d83-0c98-40151aa19cbb",{
+    method: 'PUT',
+    mode: 'no-cors',
+    headers:{
+      'Content-Type':'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost',
+      'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS',
+    },
+    body: JSON.stringify(todo set data)
+  }).then(response=>{
+    return response.json()
+  }).then(data=>
+    console.log(data)
+  );
+*/
+}
+
 websocket.onopen = function(evt) {
   console.log('WebSocket connection opened');
   websocket.send("It's open! Hooray!!!");
@@ -31,7 +50,7 @@ websocket.onmessage = function(evt) {
   var ar = json.data.split("[0m");
   var color = "white";
   ar.forEach(function(line) {
-    var output;
+    var jsondata;
     line = line.replace("[0m", "");
     line = line.replaceAll("", "");
 
@@ -47,10 +66,13 @@ websocket.onmessage = function(evt) {
     } else {
       color = "white";
     }
-    output = "<span style=\"color:"+ color +";\">" + line + "</span>";
-    document.getElementById("output").innerHTML += output;
+    jsondata = "<span style=\"color:"+ color +";\">" + line + "</span>";
+    document.getElementById("debug_log").innerHTML += jsondata;
   })
-  window.scrollTo(0,document.body.scrollHeight);
+  //window.scrollTo(0,document.logstyle.scrollHeight);
+  if(auto_scroll_check.checked) {
+    $("#debug_log").scrollTop($("#debug_log")[0].scrollHeight);
+  }
 }
 
 websocket.onclose = function(evt) {
@@ -64,13 +86,23 @@ websocket.onerror = function(evt) {
 }
 
 $(document).ready(function(){
+  document.getElementById("test").innerHTML = "WebSocket is not connected";
+
+  auto_scroll_check = document.getElementById('switch-scroll');
+
+/*
+  enableButton = document.getElementById("switch-enable");
+  enableButton.addEventListener('click', clickEnable);
+*/
+
   $.get(
       "network",
       function(data) {
          //document.getElementById("datamodel").innerHTML = JSON.stringify(data, null, 2);
          console.log(data);
-         renderjson.set_show_to_level(3);
-         document.getElementById("container").appendChild(renderjson(data));
+         //data.device[0].value[5]
+         renderjson.set_show_to_level(0);
+         document.getElementById("datamodel").appendChild(renderjson(data));
       }
   );
 });
